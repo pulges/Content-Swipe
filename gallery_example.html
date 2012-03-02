@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="scroller.js"></script>
+	<script type="text/javascript" src="gallery.js"></script>
+	<link href="gallery.css" type="text/css" rel="stylesheet" media="all" />
+	<title>gallery_example</title>
+</head>
+<body>
+  <h1>Gallery example</h1>
+  <a href="images/1.jpg" class="swipe_gallery" data-category="main" data-title="First image">
+      <img src="images/1.jpg" alt="" />
+  </a><br/>
+  Image: <span class="swipe-gallery-count" data-src="images/1.jpg" data-category="main"></span>
+  <a href="images/4.jpg" style="display:none" class="swipe_gallery" data-category="main" data-title="Second image"></a>
+  <a href="images/5.jpg" style="display:none" class="swipe_gallery" data-category="main" data-title="Third image"></a>
+  <a href="images/19.jpg" style="display:none" class="swipe_gallery" data-category="main" data-title="Jalgpallisõprade huvi Eesti-Iirimaa mängu vastu on nii suur, et ilmselt võiks ka mitu korda suurema staadioni välja müüa.<br/><span>(AFP/Scanpix)</span>"></a>
+
+  <script type="text/javascript">
+    var gallery = new swipe_gallery();
+    gallery.init();
+    $(window).resize(function() {
+        gallery.resize();
+    });
+  </script>
+</body>
+</html>
