@@ -45,6 +45,20 @@ var scroller = function() {
         if($.browser.webkit){
             me.scrollable_element.css("-webkit-transition-duration", "0s");
         }
+
+        if(me.is_touch) {
+            $(document).bind({
+                'touchmove': move,
+                'touchend': end,
+                'touchcancel': cancel
+            });
+        } else {
+            $(document).bind({
+                'mousemove': move,
+                'mouseup': end,
+                'mouseout': cancel
+            });
+        }
     };
 
     function move(e){
@@ -74,6 +88,20 @@ var scroller = function() {
         }
 
         me.start_x = me.end_x = me.start_element = null;
+        
+        if(me.is_touch) {
+            $(document).unbind({
+                'touchmove': move,
+                'touchend': end,
+                'touchcancel': cancel
+            });
+        } else {
+            $(document).unbind({
+                'mousemove': move,
+                'mouseup': end,
+                'mouseout': cancel
+            });
+        }
     };
 
     function cancel(e){
@@ -163,17 +191,11 @@ var scroller = function() {
         if(this.scroller_elemets !== null){
             if (this.bindLive) {
                 this.scroller_elemets.live({
-                    'touchstart': start,
-                    'touchmove': move,
-                    'touchend': end,
-                    'touchcancel': cancel
+                    'touchstart': start
                 });
             } else {
                 this.scroller_elemets.bind({
-                    'touchstart': start,
-                    'touchmove': move,
-                    'touchend': end,
-                    'touchcancel': cancel
+                    'touchstart': start
                 });
             }
         }
@@ -183,17 +205,11 @@ var scroller = function() {
         if(this.scroller_elemets !== null){
             if (this.bindLive) {
                 this.scroller_elemets.live({
-                    'mousedown': start,
-                    'mousemove': move,
-                    'mouseup': end,
-                    'mouseout': cancel
+                    'mousedown': start
                 });
             } else {
                 this.scroller_elemets.bind({
-                    'mousedown': start,
-                    'mousemove': move,
-                    'mouseup': end,
-                    'mouseout': cancel
+                    'mousedown': start
                 }); 
             }
         }
