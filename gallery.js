@@ -85,7 +85,7 @@ swipe_gallery.prototype = {
                 pop.find('.gallery-prev').get(0).addEventListener("touchend", function() {
                     me.prev();
                 }, false ); 
-                $('.gallery-close-big').die('touchend').live("touchend", function() {
+                $('.gallery-close-big').die('click').live("click", function() {
                     me.close();
                 });
             } else {
