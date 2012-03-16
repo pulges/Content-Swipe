@@ -90,7 +90,7 @@ swipe_gallery.prototype = {
                 pop.find('.gallery-prev').get(0).addEventListener("touchend", function() {
                     me.prev();
                 }, false ); 
-                $('.gallery-close-big').die('touchend').live("touchend", function() {
+                $('.gallery-close-big').die('click').live("click", function() {
                     me.close();
                 });
             } else {
@@ -135,7 +135,7 @@ swipe_gallery.prototype = {
             },this));
         
             this.pic_scroll.scrollable_element = pop.find( '.gallery-images-wrap' );
-            this.pic_scroll.scroller_elemets = pop.find( '.gallery-images-wrap' );
+            this.pic_scroll.scroller_elemets = pop.find( '.gallery-images-outer-wrap' );
 
             this.pic_scroll.fixed_stop_width = $(window).width();
             this.pic_scroll.max_stops = this.list[cat].length-1;
