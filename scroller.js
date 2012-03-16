@@ -56,7 +56,7 @@ var scroller = function() {
             $(document).bind({
                 'mousemove': move,
                 'mouseup': end,
-                'mouseout': cancel
+                'mouseleave': cancel
             });
         }
     };
@@ -99,7 +99,7 @@ var scroller = function() {
             $(document).unbind({
                 'mousemove': move,
                 'mouseup': end,
-                'mouseout': cancel
+                'mouseleave': cancel
             });
         }
     };
