@@ -81,31 +81,6 @@ swipe_gallery.prototype = {
             var pop = $(this.format_template(this.template,{
                             'title': this.list[cat][this.index].title
                         }));
-       
-            if ( this.isTouchDevice() ) {
-                pop.addClass('isTouch');
-                pop.find('.gallery-next').get(0).addEventListener("touchend", function() {
-                    me.next();
-                }, false );
-                pop.find('.gallery-prev').get(0).addEventListener("touchend", function() {
-                    me.prev();
-                }, false ); 
-                $('.gallery-close-big').die('click').live("click", function() {
-                    me.close();
-                });
-            } else {
-                pop.find('.gallery-next').click( function(){
-                    me.next();
-                });
-
-                pop.find('.gallery-prev').click( function(){
-                    me.prev();
-                });
-                $('.gallery-close-big').die('click.gallery').live("click.gallery", function() {
-                    me.close();
-                });
-        
-            }
 
             $(document).bind('keydown.gallery',$.proxy(function(event){
                 switch(event.which){
@@ -120,7 +95,7 @@ swipe_gallery.prototype = {
                     break;
                 }
             },me));
-        
+
             $(document).bind('mousewheel', $.proxy(function(event, delta) {
                 var dir = delta > 0 ? 'Up' : 'Down';
                 switch(dir){
@@ -133,15 +108,18 @@ swipe_gallery.prototype = {
                 }
                 return false;
             },this));
-        
+            
+            this.pic_scroll.tap = $.proxy(this.handleTap, this);
+            this.pic_scroll.tap_treshold = 0.01;
+
             this.pic_scroll.scrollable_element = pop.find( '.gallery-images-wrap' );
-            this.pic_scroll.scroller_elemets = pop.find( '.gallery-images-outer-wrap' );
+            this.pic_scroll.scroller_elemets = pop;
 
             this.pic_scroll.fixed_stop_width = $(window).width();
             this.pic_scroll.max_stops = this.list[cat].length-1;
             this.pic_scroll.bind_events();
             this.pic_scroll.center_to_index(this.index);
-        
+
             this.pic_scroll.after_stop = $.proxy( function (ind) {
                 this.index = ind;
                 $.proxy( this.show_hide_btns, this )(); 
@@ -154,6 +132,19 @@ swipe_gallery.prototype = {
             this.loading_show();
             this.show_hide_btns();        
             this.make_all_img_element(this.index, cat, function () {});
+        }
+    },
+    
+    handleTap: function(el){
+        var $el = $(el);
+        console.log(el);
+        if ($el.hasClass('gallery-next')) {
+            this.next();
+            
+        } else if ($el.hasClass('gallery-prev')) {
+            this.prev();
+        } else if ($el.hasClass('gallery-close-big')) {
+            this.close();
         }
     },
 
@@ -170,7 +161,7 @@ swipe_gallery.prototype = {
                                     </div>\
                                 </div>' ). width( $(window).width() ).css({ 'min-height':'10px' }),
             img_w_c       = img_tpl.clone();
-        
+
         img_w_c.find('.gallery-image-title' ).html(this.list[cat][index].title );
         img_w_c.find('.gallery-count').html((index + 1) + '/' + (max + 1));
         imgs_wrap.width( ( max + 1 ) * $(window).width() ).html(img_w_c);
@@ -193,7 +184,7 @@ swipe_gallery.prototype = {
                     img_i.find('.gallery-image-title' ).html( this.list[cat][inc].title );
                     img_i.find('.gallery-count').html((inc + 1) + '/' + (max + 1));
                     imgs_wrap.append(img_i);
-                
+
                     this.preload_image( this.list[cat][inc].src, $.proxy( function(img) {
                         img_i.find('.gallery-loader-wrap').remove();
                         img_i.find('.gallery-image').append(img);
@@ -215,7 +206,7 @@ swipe_gallery.prototype = {
                     img_d.find( '.gallery-image-title' ).html( this.list[cat][dec].title );
                     img_d.find('.gallery-count').html((dec + 1) + '/' + (max + 1));
                     imgs_wrap.prepend(img_d);
-                
+
                     this.preload_image( this.list[cat][dec].src, $.proxy( function(img) {
                        img_d.find('.gallery-loader-wrap').remove();
                        img_d.find('.gallery-image').append(img);
@@ -229,7 +220,7 @@ swipe_gallery.prototype = {
                 }, this ))(decr);
             }
         }
-    
+
         f();
     },
 
@@ -283,7 +274,7 @@ swipe_gallery.prototype = {
             ww = $(window).width(),
             img_box = $(img).parents('.gallery-image-wrap').eq(0),
             title_h = img_box.find('.gallery-image-bottom').outerHeight();
-        
+
         if (title_h > wh * 0.5){
             title_h = wh * 0.5;
         }
@@ -297,7 +288,7 @@ swipe_gallery.prototype = {
             w = ww * this.horizontal_treshold;
             h = w/ratio;
         }
-    
+
         if (w < 0) { w = 0; }
         if (h < 0) { h = 0; }
 
@@ -317,7 +308,7 @@ swipe_gallery.prototype = {
             h = img_box.find('.gallery-image').outerHeight() + title_h,
             wh = $(window).height(),
             top = (wh/2)-(h/2);
-        
+
         if (top<0) { top = 0; }
         img_box.css({
             'margin-top': top + 'px'
@@ -407,7 +398,7 @@ swipe_gallery.prototype = {
                     'visibility': 'visible'
                 });
                 $(this).parents('.gallery-image-wrap').eq(0).width(s.width);
-            
+
                 me.set_top( $(this) );
                 me.set_img_box_width();
             });
