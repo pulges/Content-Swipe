@@ -137,7 +137,6 @@ swipe_gallery.prototype = {
     
     handleTap: function(el){
         var $el = $(el);
-        console.log(el);
         if ($el.hasClass('gallery-next')) {
             this.next();
             
