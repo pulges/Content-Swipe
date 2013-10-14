@@ -1,6 +1,6 @@
 # Touch and click based swipable content component
 
-Javascript and jQuery based component for making swipable containers
+Javascript and jQuery based component for making swipable containers for touch devides and with mouse usage.
 
 # Examples
   
@@ -76,4 +76,7 @@ Example of accessing inner functions
     $('#to3_i').click(function() {
       $('#swipeable').scroller().move_to(2, true);
     });
+    
+
+NB! Will update the gallery example soon. Current one will not work with new library.
     
