@@ -4,13 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Swipable container</title>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="scroller.js"></script>
+	<title>Swipable Scroller</title>
 	<style>
-	  #swipable-wrap { width: 800px; height: 400px; margin: 30px; border: 10px solid #cccccc; position: relative; overflow: hidden; }
-	  #swipeable { position: relative; width: 2400px; height: 400px; }
-	  .swipable-box { width: 790px; height: 390px; float:left; border: 5px solid #dddddd; overflow: hidden;}
+    #swipable-wrap { width: 800px; height: 400px; position: relative; overflow: hidden; }
+    #swipeable { position: relative; white-space: nowrap; }
+    .swipable-box { width: 776px; height: 376px; padding: 10px; display: inline-block; overflow: hidden; white-space: normal; border: 2px solid #ccc;}
 	</style>
 </head>
 
@@ -25,8 +23,7 @@
         <p>
           Duis congue enim ut risus pulvinar a interdum dolor aliquet. Nam semper, arcu vitae euismod volutpat, nulla orci auctor urna, eget malesuada tellus risus aliquam ligula. In non orci lectus, vitae tristique arcu. In vitae vestibulum tortor. Mauris euismod aliquam leo, ac hendrerit libero ultrices vel. Aenean laoreet est vel nisl accumsan vel elementum tellus mollis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sollicitudin, eros lacinia congue porttitor, odio neque pharetra sem, quis dapibus eros ipsum adipiscing metus. Praesent sit amet est eu enim tempor vulputate. Phasellus eget mi eget metus pulvinar laoreet eu nec nunc. Etiam ac justo velit, non lobortis mauris.
         </p>
-      </div>
-      <div class="swipable-box">
+      </div><div class="swipable-box">
         <h1>Second Box</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at odio eu enim ullamcorper dictum. Nullam dignissim tincidunt odio ut euismod. Maecenas id lacus mauris. Phasellus tincidunt tempus tempus. Integer ut massa libero, sed rutrum diam. Aenean at viverra tellus. Cras nec lacus risus, quis aliquet lorem. Nulla quis lacus tellus. Quisque sollicitudin gravida felis, vitae euismod leo fermentum non. Curabitur id turpis sit amet sapien bibendum faucibus. Sed suscipit lorem ut nunc dictum elementum. Aenean eget magna et sem sagittis egestas et ut dolor. Duis erat erat, placerat a dapibus eu, tincidunt vitae neque.
@@ -34,8 +31,7 @@
         <p>
           Duis congue enim ut risus pulvinar a interdum dolor aliquet. Nam semper, arcu vitae euismod volutpat, nulla orci auctor urna, eget malesuada tellus risus aliquam ligula. In non orci lectus, vitae tristique arcu. In vitae vestibulum tortor. Mauris euismod aliquam leo, ac hendrerit libero ultrices vel. Aenean laoreet est vel nisl accumsan vel elementum tellus mollis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sollicitudin, eros lacinia congue porttitor, odio neque pharetra sem, quis dapibus eros ipsum adipiscing metus. Praesent sit amet est eu enim tempor vulputate. Phasellus eget mi eget metus pulvinar laoreet eu nec nunc. Etiam ac justo velit, non lobortis mauris.
         </p>
-      </div>
-      <div class="swipable-box">
+      </div><div class="swipable-box">
         <h1>Third Box</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at odio eu enim ullamcorper dictum. Nullam dignissim tincidunt odio ut euismod. Maecenas id lacus mauris. Phasellus tincidunt tempus tempus. Integer ut massa libero, sed rutrum diam. Aenean at viverra tellus. Cras nec lacus risus, quis aliquet lorem. Nulla quis lacus tellus. Quisque sollicitudin gravida felis, vitae euismod leo fermentum non. Curabitur id turpis sit amet sapien bibendum faucibus. Sed suscipit lorem ut nunc dictum elementum. Aenean eget magna et sem sagittis egestas et ut dolor. Duis erat erat, placerat a dapibus eu, tincidunt vitae neque.
@@ -46,21 +42,36 @@
       </div>
     </div>
   </div>
+  <button id="prev">Previous</button>
+  <button id="next">Next</button>
+  <button id="to3">3</button>
+  <button id="to3_i">to 3 Instant</button>
+  
+  
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.scroller.js"></script>
+  
   <script type="text/javascript">
-    var mybox = new scroller();
+    $('#swipeable').scroller({
+      "box_element" : '.swipable-box'
+    });
     
-    mybox.scrollable_element = $('#swipeable');
-    mybox.scroller_elemets = $('.swipable-box');
-    mybox.fixed_stop_width = 800;
-    mybox.max_stops = 2;
-    mybox.move_treshold = 0.15;
-    mybox.bind_events();
-    mybox.center_to_index(0);
+    $('#next').click(function() {
+      $('#swipeable').scroller().next();
+    });
+    
+    $('#prev').click(function() {
+      $('#swipeable').scroller().previous();
+    });
+    
+    $('#to3').click(function() {
+      $('#swipeable').scroller().move_to(2);
+    });
+    
+    $('#to3_i').click(function() {
+      $('#swipeable').scroller().move_to(2, true);
+    });
+    
   </script>
-  
-  
-  <br/>
-  Here is also an advanced example that uses additional gallery component:
-  <a href="http://pulges.github.com/Content-Swipe/gallery_example.html">http://pulges.github.com/Content-Swipe/gallery_example.html</a>
 </body>
 </html>
