@@ -148,7 +148,7 @@
       }
 
       if (fast) {
-        callback.call(this);
+        callback.apply(this);
       } else {
         setTimeout(callback.bind(this), 500);
       }
