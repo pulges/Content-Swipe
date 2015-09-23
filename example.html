@@ -46,32 +46,31 @@
   <button id="next">Next</button>
   <button id="to3">3</button>
   <button id="to3_i">to 3 Instant</button>
-  
-  
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script type="text/javascript" src="jquery.scroller.js"></script>
-  
+
+
+	<script type="text/javascript" src="scroller.js"></script>
+
   <script type="text/javascript">
-    $('#swipeable').scroller({
-      "box_element" : '.swipable-box'
+    var scroller = new Scroller(document.getElementById('swipeable'), {
+      "box_element": '.swipable-box'
     });
-    
-    $('#next').click(function() {
-      $('#swipeable').scroller().next();
+
+    document.getElementById('next').addEventListener('click', function() {
+      scroller.next();
     });
-    
-    $('#prev').click(function() {
-      $('#swipeable').scroller().previous();
+
+    document.getElementById('prev').addEventListener('click', function() {
+      scroller.previous();
     });
-    
-    $('#to3').click(function() {
-      $('#swipeable').scroller().move_to(2);
+
+    document.getElementById('to3').addEventListener('click', function() {
+      scroller.move_to(2);
     });
-    
-    $('#to3_i').click(function() {
-      $('#swipeable').scroller().move_to(2, true);
+
+    document.getElementById('to3_i').addEventListener('click', function() {
+      scroller.move_to(2, true);
     });
-    
+
   </script>
 </body>
 </html>
