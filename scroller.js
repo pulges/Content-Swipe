@@ -47,7 +47,7 @@
     },
 
     mX: function(event) {
-      return (isTouch) ? event.originalEvent.targetTouches[0].pageX :  event.pageX;
+      return (isTouch) ? event.targetTouches[0].pageX :  event.pageX;
     },
 
     start: function(event) {
