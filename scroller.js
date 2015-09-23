@@ -53,6 +53,8 @@
     start: function(event) {
       event.preventDefault();
 
+      clearTimeout(this.scrollStopCallbackTimeout);
+
       this.startEl = event.target;
       this.startX = this.endX = this.mX(event);
 
@@ -150,7 +152,7 @@
       if (fast) {
         callback.apply(this);
       } else {
-        setTimeout(callback.bind(this), 500);
+        this.scrollStopCallbackTimeout = setTimeout(callback.bind(this), 500);
       }
     },
 
